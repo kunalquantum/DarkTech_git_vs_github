@@ -1,0 +1,384 @@
+:root {
+    --bg-color: #121212;
+    --box-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --highlight: #00e676;
+    /* Neon Green */
+    --git-color: #f4511e;
+    /* Git Orange */
+    --github-color: #2979ff;
+    /* GitHub Blue */
+    --dim-color: #424242;
+    --border-radius: 12px;
+    --transition-speed: 0.5s;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.mode-switch {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mode-btn {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #555;
+    color: #888;
+    min-width: auto;
+}
+
+.mode-btn.active {
+    background: #333;
+    color: #fff;
+    border-color: #fff;
+}
+
+.analogy-item.active-row {
+    background-color: rgba(0, 230, 118, 0.1);
+    border-left: 3px solid var(--highlight);
+    transition: background-color 0.3s;
+}
+
+/* --- Layout --- */
+.visualizer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.zone {
+    background-color: var(--box-bg);
+    border: 2px solid var(--dim-color);
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
+    width: 220px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all var(--transition-speed);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.zone-label {
+    position: absolute;
+    top: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.zone-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.3;
+    transition: opacity var(--transition-speed);
+}
+
+/* Active Components */
+.zone.active {
+    border-color: var(--highlight);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
+}
+
+.zone.active .zone-icon {
+    opacity: 1;
+}
+
+.zone.git.active {
+    border-color: var(--git-color);
+    box-shadow: 0 0 20px rgba(244, 81, 30, 0.2);
+}
+
+.zone.github.active {
+    border-color: var(--github-color);
+    box-shadow: 0 0 20px rgba(41, 121, 255, 0.2);
+}
+
+/* Arrows */
+.arrow-path {
+    flex-grow: 1;
+    height: 2px;
+    background-color: var(--dim-color);
+    position: relative;
+    max-width: 100px;
+}
+
+.arrow-head {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid var(--dim-color);
+}
+
+/* --- Objects (Code, Commits) --- */
+.file-obj,
+.snapshot-obj {
+    width: 40px;
+    height: 50px;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.file-obj {
+    background: #eee;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.file-obj::after {
+    content: 'HTML';
+    font-size: 0.7rem;
+    color: #e65100;
+}
+
+.file-obj.readme {
+    background: #fff9c4;
+}
+
+.file-obj.readme::after {
+    content: 'MD';
+    color: #333;
+}
+
+.snapshot-obj {
+    background: var(--git-color);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.snapshot-obj::after {
+    content: '●';
+    /* Camera lens / commit dot */
+}
+
+.github .snapshot-obj {
+    background: var(--github-color);
+}
+
+/* Photo Mode Styles */
+.file-obj.photo-file {
+    background: #ffcc80;
+    /* Light Orange */
+    border: 2px solid #fff;
+}
+
+.file-obj.photo-file::after {
+    content: '';
+    /* Remove text */
+}
+
+.snapshot-obj.photo-snap {
+    border-radius: 4px;
+    /* Square for photos */
+    background: #fff;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.snapshot-obj.photo-snap::after {
+    content: '';
+    /* Remove dot */
+}
+
+/* --- Controls --- */
+.controls {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    background-color: var(--box-bg);
+    border: 1px solid var(--dim-color);
+    color: var(--text-color);
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    min-width: 140px;
+}
+
+button:hover {
+    background-color: #2d2d2d;
+    border-color: #666;
+    transform: translateY(-2px);
+}
+
+button.primary {
+    border-color: var(--highlight);
+    color: var(--highlight);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Callout --- */
+.callout-box {
+    margin-top: 30px;
+    min-height: 24px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--highlight);
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.callout-box.visible {
+    opacity: 1;
+}
+
+/* --- Analogy Section --- */
+.analogy-container {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 800px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.analogy-title {
+    text-align: center;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.analogy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.analogy-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    align-items: center;
+}
+
+.analogy-item:last-child {
+    border-bottom: none;
+}
+
+.tech-term {
+    color: var(--highlight);
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.real-term {
+    color: #90caf9;
+    /* Light blue */
+    text-align: right;
+}
+
+.analogy-desc {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #333;
+}
+
+/* --- Animations --- */
+@keyframes writeCodeAnim {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes moveToGit {
+    0% {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        left: calc(100% + 40px + 110px);
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Distance to center of next box */
+}

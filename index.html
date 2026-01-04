@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git vs GitHub Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Git vs GitHub Visualizer</h1>
+    <div class="subtitle">Scenario: Building Your Portfolio Website</div>
+
+    <div class="mode-switch">
+        <span>Mode: </span>
+        <button id="mode-dev" class="mode-btn active">💻 Developer</button>
+        <button id="mode-photo" class="mode-btn">📸 Photographer</button>
+    </div>
+
+    <div class="visualizer-container">
+
+        <!-- Laptop Zone -->
+        <div class="zone" id="laptop">
+            <div class="zone-label">Developer Laptop</div>
+            <div class="zone-icon">💻</div>
+            <!-- Container for code file -->
+            <div class="file-obj" id="code-file"></div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="arrow-path">
+            <div class="arrow-head"></div>
+        </div>
+
+        <!-- Git Zone -->
+        <div class="zone git" id="git-repo">
+            <div class="zone-label">Git (Local)</div>
+            <div class="zone-icon">Scm</div> <!-- Placeholder text/icon -->
+            <!-- Container for snapshots -->
+            <div class="snapshot-obj" id="local-snapshot"></div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="arrow-path">
+            <div class="arrow-head"></div>
+        </div>
+
+        <!-- GitHub Zone -->
+        <div class="zone github" id="github-repo">
+            <div class="zone-label">GitHub (Remote)</div>
+            <div class="zone-icon">☁️</div>
+            <div class="snapshot-obj" id="remote-snapshot"></div>
+        </div>
+
+    </div>
+
+    <div class="callout-box" id="callout-msg">Welcome! Start by creating your portfolio.</div>
+
+    <div class="controls">
+        <button id="btn-write">1. Create index.html</button>
+        <button id="btn-commit" disabled>2. Commit v1</button>
+        <button id="btn-push" disabled>3. Push to Cloud</button>
+        <button id="btn-pull" disabled>4. Pull Updates</button>
+    </div>
+
+    <!-- Analogy Section -->
+    <div class="analogy-container">
+        <div class="analogy-title">Real World Analogy</div>
+        <div class="analogy-grid">
+            <div class="analogy-item">
+                <span class="tech-term">Git (Local)</span>
+                <span class="real-term">Phone Gallery</span>
+            </div>
+            <div class="analogy-desc">Only on your device. Offline. Private.</div>
+
+            <div class="analogy-item">
+                <span class="tech-term">GitHub (Remote)</span>
+                <span class="real-term">Google Photos Cloud</span>
+            </div>
+            <div class="analogy-desc">Online backup. Shareable. Safe if phone breaks.</div>
+
+            <div class="analogy-item">
+                <span class="tech-term">Push</span>
+                <span class="real-term">"Back up now"</span>
+            </div>
+            <div class="analogy-desc">Uploading your local photos to the cloud.</div>
+
+            <div class="analogy-item">
+                <span class="tech-term">Pull</span>
+                <span class="real-term">"Download Shared Photo"</span>
+            </div>
+            <div class="analogy-desc">Getting a photo a friend uploaded to the shared album.</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
